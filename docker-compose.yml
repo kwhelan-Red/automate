@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: customer_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: customer_data
+      MYSQL_USER: customer_app
+      MYSQL_PASSWORD: customer123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/setup_database.sql:/docker-entrypoint-initdb.d/setup.sql
+    networks:
+      - customer_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # PHP/Apache Web Server
+  web:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: customer_api
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_HOST: mysql
+      DB_USER: customer_app
+      DB_PASS: customer123
+      DB_NAME: customer_data
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend:/var/www/html
+    networks:
+      - customer_network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  customer_network:
+    driver: bridge

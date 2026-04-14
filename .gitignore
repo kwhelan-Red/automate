@@ -23,3 +23,7 @@ out/
 .gradle/
 build/
 *.log
+
+# Docker
+.env
+docker-compose.override.yml

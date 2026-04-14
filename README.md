@@ -11,6 +11,21 @@ A modern Android application that collects customer data through a form and subm
 - Stores customer information in MySQL database
 - Loading states and success/error messages
 
+## 🚀 Quick Start with Docker (Recommended!)
+
+**Easiest way to get started** - Everything runs in containers, no manual setup needed!
+
+```bash
+# 1. Start the backend (one command!)
+./start.sh
+
+# 2. Open in Android Studio and click Run!
+```
+
+That's it! See [DOCKER-SETUP.md](DOCKER-SETUP.md) for complete Docker guide.
+
+**Alternative Setup**: Manual installation with XAMPP/MAMP (see below)
+
 ## Project Structure
 
 ```

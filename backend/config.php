@@ -6,10 +6,11 @@
  */
 
 // Database connection settings
-define('DB_HOST', 'localhost');
-define('DB_USER', 'your_username');
-define('DB_PASS', 'your_password');
-define('DB_NAME', 'customer_data');
+// Use Docker environment variables if available, otherwise fall back to defaults
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_USER', getenv('DB_USER') ?: 'customer_app');
+define('DB_PASS', getenv('DB_PASS') ?: 'customer123');
+define('DB_NAME', getenv('DB_NAME') ?: 'customer_data');
 
 // Set timezone
 date_default_timezone_set('UTC');

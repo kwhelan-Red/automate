@@ -7,12 +7,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
-    // TODO: Replace with your actual server URL
+    // Docker backend runs on port 8080
     // For testing with localhost, use:
-    // - Android Emulator: "http://10.0.2.2/"
-    // - Physical device: "http://YOUR_COMPUTER_IP:PORT/"
+    // - Android Emulator: "http://10.0.2.2:8080/"
+    // - Physical device: "http://YOUR_COMPUTER_IP:8080/"
     // - Production: "https://yourdomain.com/api/"
-    private const val BASE_URL = "http://10.0.2.2/api/"
+    private const val BASE_URL = "http://10.0.2.2:8080/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
