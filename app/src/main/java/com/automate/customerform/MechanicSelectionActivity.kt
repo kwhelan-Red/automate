@@ -137,7 +137,10 @@ class MechanicSelectionActivity : AppCompatActivity() {
     }
 
     private fun startMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
+        // Reset inspection data for new inspection
+        InspectionData.reset()
+
+        val intent = Intent(this, VehicleRegistrationActivity::class.java)
         startActivity(intent)
         finish()
     }

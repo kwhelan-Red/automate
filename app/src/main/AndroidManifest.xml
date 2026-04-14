@@ -27,6 +27,14 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".VehicleRegistrationActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".InspectionStepActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
