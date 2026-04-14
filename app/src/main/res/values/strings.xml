@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Customer Form</string>
+    <string name="customer_form_title">Customer Information</string>
+    <string name="name_hint">Full Name</string>
+    <string name="email_hint">Email Address</string>
+    <string name="phone_hint">Phone Number</string>
+    <string name="company_hint">Company Name</string>
+    <string name="notes_hint">Additional Notes</string>
+    <string name="submit_button">Submit</string>
+    <string name="submitting">Submitting...</string>
+    <string name="success_message">Customer data submitted successfully!</string>
+    <string name="error_message">Failed to submit data. Please try again.</string>
+    <string name="validation_error">Please fill in all required fields</string>
+    <string name="invalid_email">Please enter a valid email address</string>
+</resources>
