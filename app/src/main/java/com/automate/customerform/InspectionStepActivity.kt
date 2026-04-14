@@ -205,15 +205,21 @@ class InspectionStepActivity : AppCompatActivity() {
         val nextStepInfo = getNextStep(currentStep)
 
         if (nextStepInfo == null) {
-            // Last step - go to review
-            val intent = Intent(this, InspectionReviewActivity::class.java)
+            // Last step - show completion message and return to vehicle reg
+            android.widget.Toast.makeText(
+                this,
+                "Inspection Complete! (Review screen coming soon)",
+                android.widget.Toast.LENGTH_LONG
+            ).show()
+
+            // For now, go back to vehicle registration
+            val intent = Intent(this, VehicleRegistrationActivity::class.java)
             startActivity(intent)
+            finish()
         } else {
             val (nextStep, nextStepNumber) = nextStepInfo
-            val intent = Intent(this, when (nextStep) {
-                "driver_front_tyre", "driver_rear_tyre", "passenger_front_tyre", "passenger_rear_tyre" -> TyreInspectionActivity::class.java
-                else -> InspectionStepActivity::class.java
-            })
+            // For now, skip tyre steps - go to InspectionStepActivity for all
+            val intent = Intent(this, InspectionStepActivity::class.java)
             intent.putExtra("step", nextStep)
             intent.putExtra("stepNumber", nextStepNumber)
             intent.putExtra("totalSteps", totalSteps)
