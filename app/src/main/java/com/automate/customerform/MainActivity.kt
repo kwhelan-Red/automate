@@ -1,16 +1,22 @@
 package com.automate.customerform
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var mechanicNameTextView: TextView
+    private lateinit var changeMechanicButton: MaterialButton
 
     private lateinit var nameInputLayout: TextInputLayout
     private lateinit var emailInputLayout: TextInputLayout
@@ -24,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var companyEditText: TextInputEditText
     private lateinit var notesEditText: TextInputEditText
 
-    private lateinit var submitButton: com.google.android.material.button.MaterialButton
+    private lateinit var submitButton: MaterialButton
     private lateinit var progressBar: android.widget.ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,10 +38,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initializeViews()
+        loadMechanicInfo()
         setupListeners()
     }
 
     private fun initializeViews() {
+        mechanicNameTextView = findViewById(R.id.mechanicNameTextView)
+        changeMechanicButton = findViewById(R.id.changeMechanicButton)
         nameInputLayout = findViewById(R.id.nameInputLayout)
         emailInputLayout = findViewById(R.id.emailInputLayout)
         phoneInputLayout = findViewById(R.id.phoneInputLayout)
@@ -52,7 +61,24 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
     }
 
+    private fun loadMechanicInfo() {
+        val prefs = getSharedPreferences("AutoMate", MODE_PRIVATE)
+        val mechanicName = prefs.getString("mechanic_name", "Unknown") ?: "Unknown"
+        val mechanicRole = prefs.getString("mechanic_role", "") ?: ""
+
+        mechanicNameTextView.text = "$mechanicName${if (mechanicRole.isNotEmpty()) " ($mechanicRole)" else ""}"
+    }
+
     private fun setupListeners() {
+        changeMechanicButton.setOnClickListener {
+            // Clear saved mechanic and return to selection
+            getSharedPreferences("AutoMate", MODE_PRIVATE).edit().clear().apply()
+
+            val intent = Intent(this, MechanicSelectionActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         submitButton.setOnClickListener {
             if (validateForm()) {
                 submitCustomerData()
